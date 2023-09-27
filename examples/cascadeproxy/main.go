@@ -3,7 +3,7 @@ package main
 import (
 	"encoding/base64"
 	"fmt"
-	"io/ioutil"
+	"io"
 	"log"
 	"net/http"
 	"net/url"
@@ -94,7 +94,7 @@ func main() {
 
 	}
 	defer rsp.Body.Close()
-	data, _ := ioutil.ReadAll(rsp.Body)
+	data, _ := io.ReadAll(rsp.Body)
 
 	if rsp.StatusCode != http.StatusOK {
 		log.Fatalf("status %d, data %s", rsp.StatusCode, data)

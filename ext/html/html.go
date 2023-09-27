@@ -9,9 +9,9 @@ import (
 	"net/http"
 	"strings"
 
-	"github.com/sonnt85/goproxy"
 	"github.com/rogpeppe/go-charset/charset"
 	_ "github.com/rogpeppe/go-charset/data"
+	"github.com/sonnt85/goproxy"
 )
 
 var IsHtml goproxy.RespCondition = goproxy.ContentTypeIs("text/html")
@@ -37,7 +37,7 @@ var IsWebRelatedText goproxy.RespCondition = goproxy.ContentTypeIs("text/html",
 // guessing Html charset encoding from the <META> tags is not yet implemented.
 func HandleString(f func(s string, ctx *goproxy.ProxyCtx) string) goproxy.RespHandler {
 	return HandleStringReader(func(r io.Reader, ctx *goproxy.ProxyCtx) io.Reader {
-		b, err := ioutil.ReadAll(r)
+		b, err := io.ReadAll(r)
 		if err != nil {
 			ctx.Warnf("Cannot read string from resp body: %v", err)
 			return r

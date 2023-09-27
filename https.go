@@ -5,7 +5,6 @@ import (
 	"crypto/tls"
 	"errors"
 	"io"
-	"io/ioutil"
 	"net"
 	"net/http"
 	"net/url"
@@ -367,7 +366,7 @@ func (proxy *ProxyHttpServer) NewConnectDialToProxyWithHandler(https_proxy strin
 			}
 			defer resp.Body.Close()
 			if resp.StatusCode != 200 {
-				resp, err := ioutil.ReadAll(resp.Body)
+				resp, err := io.ReadAll(resp.Body)
 				if err != nil {
 					return nil, err
 				}
@@ -408,7 +407,7 @@ func (proxy *ProxyHttpServer) NewConnectDialToProxyWithHandler(https_proxy strin
 			}
 			defer resp.Body.Close()
 			if resp.StatusCode != 200 {
-				body, err := ioutil.ReadAll(io.LimitReader(resp.Body, 500))
+				body, err := io.ReadAll(io.LimitReader(resp.Body, 500))
 				if err != nil {
 					return nil, err
 				}
